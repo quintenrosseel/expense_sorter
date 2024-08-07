@@ -1,0 +1,9 @@
+.conda
+.pytest_cache
+.DS_Store
+.vscode
+__pycache__
+poetry.lock
+
+*.HEIC
+*.png
