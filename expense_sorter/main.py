@@ -173,5 +173,47 @@ def main():
             pillow_image.save(cropped_output_path)
             logger.info(f"Cropped image saved to {cropped_output_path}")
 
+def convert_png_to_jpg(input_dir: str = PNG_DIR, output_dir: str = OUTPUT_DIR) -> List[Tuple[str, str]]:
+    """Convert PNG files to JPG format.
+    
+    Args:
+        input_dir (str): Directory containing PNG files
+        output_dir (str): Directory to save JPG files
+        
+    Returns:
+        List[Tuple[str, str]]: List of tuples containing (original_file, output_path)
+    """
+    processed_files = []
+    
+    # Create output directory if it doesn't exist
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # Process each PNG file in the input directory
+    for file in os.listdir(input_dir):
+        if file.lower().endswith('.png'):
+            input_path = os.path.join(input_dir, file)
+            output_filename = f"{os.path.splitext(file)[0]}.jpg"
+            output_path = os.path.join(output_dir, output_filename)
+            
+            try:
+                # Open and convert the image
+                with Image.open(input_path) as img:
+                    # Create a white background image
+                    white_bg = Image.new('RGBA', img.size, 'WHITE')
+                    # Paste the image on white background using alpha composite
+                    white_bg.paste(img, mask=img)
+                    # Convert to RGB
+                    rgb_img = white_bg.convert('RGB')
+                    # Save as JPG
+                    rgb_img.save(output_path, 'JPEG')
+                    processed_files.append((file, output_path))
+                    logger.info(f"Converted {file} to JPG: {output_path}")
+            except Exception as e:
+                logger.error(f"Error converting {file}: {str(e)}")
+                
+    return processed_files
+
 if __name__ == "__main__":
-    main()
+    converted_files = convert_png_to_jpg()
+    # main() # Convert from heic to crops
+
