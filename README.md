@@ -24,3 +24,18 @@ Expense Sorter is a Python-based tool designed to help you organize raw expenses
 ```zsh 
     pytest . 
 ```
+
+# Running
+- Ensure that the `input/heic` folder contains your image files you want to process. 
+- Next, in the root level directory (containing your environment), run: 
+```python
+python ./expense_sorter/main.py
+```
+    - The script will take a while to start up, and log. 
+    - The `main()` script transforms heic files to cropped versions of those images.
+        - First transforms to PNG files
+        - Next, transforms to cropped versions using the BG removal model. 
+- Typically, the output needs to be JPEG as PNG isn't supported. 
+    - copy the images to input/png
+    - Uncomment the `main` script and enable the `convert_png_to_jpg` script in the `main.py` file. 
+    - Run again. 
