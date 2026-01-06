@@ -29,7 +29,7 @@ Expense Sorter is a Python-based tool designed to help you organize raw expenses
 - Ensure that the `input/heic` folder contains your image files you want to process. 
 - Next, in the root level directory (containing your environment), run: 
 ```python
-python ./expense_sorter/main.py
+python3 ./expense_sorter/main.py
 ```
     - The script will take a while to start up, and log. 
     - The `main()` script transforms heic files to cropped versions of those images.
